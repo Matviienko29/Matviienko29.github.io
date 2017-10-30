@@ -1,0 +1,696 @@
+*{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-decoration: none;
+
+}
+
+@font-face {
+    font-family: 'ubuntu';
+    src: url('../fonts/ubuntu-webfont.eot');
+    src: url('../fonts/ubuntu-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/ubuntu-webfont.woff2') format('woff2'),
+         url('../fonts/ubuntu-webfont.woff') format('woff'),
+         url('../fonts/ubuntu-webfont.ttf') format('truetype'),
+         url('../fonts/ubuntu-webfont.svg#webfontregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+};
+
+@font-face {
+    font-family: 'lato';
+    src: url('../fonts/lato-regular-webfont.eot');
+    src: url('../fonts/lato-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/lato-regular-webfont.woff2') format('woff2'),
+         url('../fonts/lato-regular-webfont.woff') format('woff'),
+         url('../fonts/lato-regular-webfont.ttf') format('truetype'),
+         url('../fonts/lato-regular-webfont.svg#webfontregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+$ubuntu: 'ubuntu';
+$lato: 'Lato';
+$lb: rgba(42,250,255,1);
+$mobile: 320px;
+$semitablet: 460px;
+$tablet: 768px;
+$desctop960: 960px;
+$desctop: 1140px;
+$fullscreen: 1350px;
+
+@mixin respond-to ($media) {
+	@if $media == $mobile {
+		@media screen and (max-width: $mobile) {@content;}
+	}
+	@else if $media == $tablet {
+		@media screen and (max-width: $tablet) {@content;}
+	}
+	@else if $media == $semitablet {
+		@media screen and (max-width: $semitablet) {@content;}
+	}
+	@else if $media == $desctop {
+		@media screen and (max-width: $desctop) {@content;}
+	}
+	@else if $media == $desctop960 {
+		@media screen and (max-width: $desctop960) {@content;}
+	}
+	@else if $media == $fullscreen {
+		@media screen and (max-width: $fullscreen) {@content;}
+	}
+}
+
+@mixin innerBg($pic){
+	background: rgba(0,0,0,.1) url('../img/'+$pic+'.jpg') center center no-repeat;
+	background-size: cover;
+}
+@mixin hoverBg($pic){
+	&:hover .portfolio__innerblock {
+		background:rgba(0,0,0,.85) url('../img/'+$pic+'.jpg') center center no-repeat;
+		background-size: cover;
+	}
+};
+
+.clearfix:after{display: block;clear: both;content: '';}
+
+.left{float: left;}
+
+.right{float: right;}
+
+.wrapper{
+	padding: 20px;
+	width: 1140px;
+	box-sizing: border-box;
+	margin: 0 auto;
+
+	@include respond-to($desctop){
+		max-width: $desctop;
+		width: 100%;
+	}
+	@include respond-to ($desctop960){
+		max-width: $desctop960;
+	}
+	@include respond-to($tablet){
+		max-width: $tablet;
+	}
+};
+					/* HEADER */
+
+#header {
+	color:#fff;
+	position: relative;
+};
+
+.header__topline{
+	position: absolute;
+	width: 100%;
+	height: 70px;
+	animation: dropdown 2s ease-in-out ;
+	@include respond-to ($desctop960){
+		animation: none;
+	}
+}
+
+
+.header__logo{
+	font: 25px/70px $lato;
+	@include respond-to ($mobile){
+		.header__svg {margin-right: 0px;}
+	}
+}
+
+
+.header__list--navigate{
+	opacity: .6;
+	z-index: 999;
+	position: fixed;
+	width: 50px;
+	height: 50px;
+	right: 0px;
+	top: 0px;
+	&:hover{opacity: 1;};
+	.header__item{height: 45px;}
+	.header__link{
+		height: 45px;
+		text-align: left;
+		&:after{display: none;};
+		.header__svg{opacity: 1;}
+	}
+	@include respond-to ($desctop960){display: none;}
+}
+
+.header__item--innermenu {
+	@include respond-to ($desctop960) {
+		display: block;
+		height: 50px;
+		width: 50px;
+		position: relative;
+		right: 0;
+		top: 20px;
+		.header__svg--menu{display: block;}
+
+		.header__list--hiddenmenu{
+			position: fixed;
+			top: 30px;
+			right: -200px;
+			transition: all .5s ease-in-out;
+
+		}
+		.header__item{display: block;height: 45px;}
+		.header__link{line-height: 45px;&:after{display: none;};}
+		&:hover{
+			.header__svg--menu{transform:rotateX(360deg);opacity:0;}
+			.header__list--hiddenmenu{
+				right: 10px;
+
+			}
+		};
+	}
+}
+
+.header__item {
+	text-align: center;
+	display: inline-block;
+	margin: 0 10px;
+	height: 70px;
+	width: 150px;
+	text-align: center;
+}
+.header__link {
+	position: relative;
+	display: block;
+	font: 20px/70px $ubuntu;
+	color:#fff;
+	.header__svg{opacity: 0;}
+	&:after{
+		content:'';
+		position: absolute;
+		display: block;
+		height: 3px;
+		bottom: 3px;
+		right: 50%;
+		left: 50%;
+		background: $lb;
+		transition-property: left, right;
+		transition-duration: .3s;
+	};
+	&:hover{&:after{left: 0%;right: 0%;};};
+	&:hover .header__svg{fill:$lb;opacity:1;cursor: pointer;}
+
+}
+.header__main{
+	text-align: center;
+	padding: 23% 0;
+	@include respond-to ($desctop960) {
+		padding: 220px 0;
+	}
+
+}
+.header__text, .header__title{
+	animation: textRoll 1.2s linear;
+	@include respond-to ($semitablet){
+		margin-bottom: 40px;
+	}
+}
+.header__wrap{
+	position: relative;
+	font: 22px/120px $lato;
+	@include respond-to ($tablet){
+		line-height: 70px;
+	}
+	@include respond-to ($semitablet){
+		line-height: 40px;
+	}
+}
+.header__svg{
+	fill: #fff;
+	height: 35px;
+	width: 35px;
+	vertical-align: middle;
+	margin-right: 10px;
+	transition: all .3s;
+}
+.header__svg--menu{
+	display: none;
+}
+.header__svg--btn{
+	fill: #fff;
+	background: transparent;
+	outline: none;
+	position: absolute;
+	left: 48%;
+	right: 48%;
+	height: 60px;
+	width: 60px;
+	border: 1px solid transparent;
+	cursor: pointer;
+	animation: slideDown 2s ease-in-out infinite;
+	@include respond-to ($tablet) {left: 46%;}
+	@include respond-to ($semitablet){left: 43%;}
+};
+
+
+							/*PORTFOLIO*/
+
+#portfolio	{
+	position: relative;
+	padding-bottom: 100px;
+	opacity: .98;
+	background: rgba(0,170,255,.4);
+	transition: background 1s;
+	color:#fff;
+	text-align: center;
+	&:hover{background: rgba(0,170,255,.7);};
+}
+.portfolio__title{
+	text-transform: uppercase;
+	margin: 60px auto;
+	font-family: $ubuntu;
+	@include respond-to ($desctop){
+		margin: 30px auto;
+	}
+}
+
+
+.portfolio__subtitle{
+	text-transform: uppercase;
+};
+.portfolio__wrap{
+	@include respond-to($desctop){
+		width: 600px;
+		margin: 0 auto;
+	}
+	@include respond-to ($tablet){
+		width: 100%;
+		max-width: $tablet;
+	}
+}
+.portfolio__item{
+	position: relative;
+	font-size: 25px;
+	width: 600px;
+	height: 400px;
+	border-radius: 40px;
+	padding: 0 24%;
+	transition: padding-left .7s ease-in-out;
+	&:hover {
+		padding: 0 540px 0 0px;
+		@include respond-to ($fullscreen){
+			padding: 0 400px 0 40px;
+		}
+		@include respond-to ($desctop){
+			padding: 0px;
+		}
+	};
+	&:hover .portfolio__svg{opacity:1};
+	&:hover .portfolio__desc{
+
+		display: block;
+		animation: sideFlow .4s linear 1;
+		@include respond-to ($desctop){
+			animation: none;
+		}
+		@include respond-to ($tablet){
+			padding: 20px;
+			width: 80%;
+			line-height: 30px;
+			left: 7%;
+			top: 10%;
+			.portfolio__link{
+				position: absolute;
+				bottom: 0px;
+				left: 0%;
+			    width: inherit;
+			    right: 0%;
+			}
+
+		}
+		@include respond-to ($semitablet){
+			padding: 10px;
+			line-height: 25px;
+			top: 10px;
+			.portfolio__link{
+				bottom: 0px;
+			}
+		}
+
+	};
+
+	@include respond-to ($desctop) {
+		padding: 0;
+	}
+	@include respond-to ($tablet){
+		width:100%;
+		max-width: $tablet;
+
+	}
+	@include respond-to ($semitablet) {
+		height: 100%;
+		min-height: 300px;
+	}
+
+}
+.portfolio__item--urlaubs{@include hoverBg(urlaubs);}
+.portfolio__item--pingbuller{@include hoverBg(pingbuller).portfolio__icons{left: 40px;top: 50px;}}
+.portfolio__item--mountains{@include hoverBg(mountain);}
+.portfolio__item--build{@include hoverBg(build);}
+.portfolio__item--dreamscape{@include hoverBg(dreamscape)}
+
+
+.portfolio__innerblock{
+	position: absolute;
+	border: 1px solid rgba(66, 155, 184,.8);
+	border-radius: 40px;
+	width: 598px;
+	height: 398px;
+	transition: background .8s;
+	background-blend-mode: multiply;
+	z-index: 999;
+	transform: translate3d(0px,0px,0px);
+	@include respond-to ($desctop){
+		transition: background .2s;
+	}
+	@include respond-to ($tablet){
+		width: 100%;
+		max-width: $tablet;
+	}
+	@include respond-to ($semitablet){
+		height: 100%;
+		max-height: 300px;
+	}
+
+}
+
+.portfolio__innerblock--urlaubs{@include innerBg(urlaubs);}
+.portfolio__innerblock--pingbuller{@include innerBg(pingbuller);.portfolio__icons{left: 40px;top: 50px;}}
+.portfolio__innerblock--mountains{@include innerBg(mountain);}
+.portfolio__innerblock--build{@include innerBg(build);}
+.portfolio__innerblock--dreamscape{@include innerBg(dreamscape)}
+
+
+
+.portfolio__icons{
+	position: absolute;
+	z-index: 1;
+	padding: 100px;
+	@include respond-to($desctop){display: none;}
+}
+
+.portfolio__svg{
+	opacity: 0;
+	width: 100px;
+	height: 100px;
+	transition: opacity .8s;
+}
+
+.portfolio__desc{
+	position: absolute;
+	display: none;
+	font: 25px/45px $lato;
+	left: 500px;
+	height: 280px;
+	width: 445px;
+	padding: 40px 50px 80px 150px;
+	@include respond-to($fullscreen){
+		width: 380px;
+		left: 480px;
+
+	}
+	@include respond-to($desctop){
+		left: -35px;
+	}
+	@include respond-to ($semitablet){
+		font: 20px;
+	}
+
+}
+.portfolio__link{
+	display: block;
+	border-radius: 30px;
+	border: 2px solid #fff;
+	padding: 15px;
+	margin: 20px auto;
+	color: #fff;
+	text-decoration: none;
+	&:hover{text-shadow: 0 1px 2px rgba(255,255,255,.7);};
+}
+
+
+					/* ABOUT  */
+
+#about {
+	position: relative;
+	color: #fff;
+	font-family: $ubuntu;
+	min-height: 800px;
+}
+
+.about__title {
+	text-align: center;
+	@extend .portfolio__title;
+}
+.about__item{
+	width: 530px;
+	@include respond-to ($desctop){
+		width: 50%;
+	}
+	@include respond-to ($desctop960){
+		float: none;
+		width: 80%;
+		margin: 50px auto;
+	}
+}
+.about__subtitle{
+	margin: 20px auto;
+	text-align: center;
+}
+
+.about__skillbar{
+	width: 600px;
+	font: 20px/60px $lato;
+	@include respond-to ($desctop960){
+		width: 100%;
+	}
+}
+.about__skillname{
+	float: left;
+	width: 140px;
+	@include respond-to ($desctop960){
+		float: none;
+		margin: 0 auto;
+		text-align: center;
+	}
+}
+.about__skillbar-wrap{
+	display: inline-block;
+	width: 353px;
+	height: 20px;
+	background: #fff;
+	border-radius: 20px;
+	padding: 3px;
+	@include respond-to ($desctop){
+		width: 50%;
+	}
+	@include respond-to ($desctop960){
+		width: 100%;
+	}
+}
+
+.about__meter{
+	border-radius: 20px;
+	content: '';
+	display: block;
+	width: 100%;
+	height: 100%;
+	background: repeating-linear-gradient(-45deg, rgba(0,255,31,1) 10px, rgba(0, 149, 43, 0.9) 20px);
+}
+.about__meter--js{
+	width: 85%;
+		border-radius: 25px 10px 10px 25px;
+}
+.about__meter--slideOut{
+	animation: sliding 1s ease-in-out;
+}
+.about__meter--JSslideOut{
+	animation: JSsliding 1s ease-in-out;
+}
+.about__photo{
+	display: block;
+	margin: 25px auto;
+	border-radius: 50%;
+	width: 220px;
+	height: 220px;
+	box-shadow: 0 0 10px rgba(255,255,255,.7);
+	@include respond-to ($desctop960){
+		margin: 15px;
+		float: left;
+	}
+	@include respond-to ($tablet) {
+		margin: 20px;
+	}
+	@include respond-to ($semitablet) {
+		float: none;
+		margin: 10px auto;
+	}
+
+}
+
+.about__text{
+	text-indent: 20px;
+	font: 18px $lato;
+}
+
+					/* CONTACTS */
+
+#contacts{
+	position: relative;
+	min-height: 280px;
+	text-align: center;
+	color: #fff;
+	background: rgba(250,250,250,.2)
+}
+.contacts__title{
+	@extend .portfolio__title;
+}
+.contacts__link{
+	display: inline-block;
+	&:nth-child(3) .contacts__svg{
+		transform: scale(1.15);
+		&:hover{transform: scale(1.25)};
+	};
+	@include respond-to ($semitablet) {
+		width: 80px;
+		height: 80px;
+		text-align: center;
+	}
+};
+.contacts__svg{
+	width: 70px;
+	height: 70px;
+	fill: #fff;
+	margin: 50px;
+	transition: all .4s ease-in-out;
+	&:hover{fill: $lb;transform: scale(1.1)};
+	@include respond-to ($semitablet){
+		width: 45px;
+		height: 45px;
+		margin: 0;
+	}
+
+}
+
+.parallaxContainer{
+    position: fixed;
+    overflow: hidden;
+    z-index: -100;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    transform: translate3d(0px, 0px, 0px);
+    height: 100%;
+    width: 100%;
+	@include respond-to ($tablet){
+		z-index: 0;
+		.parallaxMobile{
+			min-height: 100%;
+			min-width: 100%;
+			background: url('../img/head.jpg') top center no-repeat;
+			background-size: cover;
+		}
+    }
+}
+
+
+
+.parallaxImg {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    right: 0;
+    @include respond-to($desctop){
+    	width: 125%;
+    	height: 120%;
+    	margin-left: -15%;
+    }
+    @include respond-to ($desctop960){
+		width: 130%;
+		height: 170%;
+		margin-left: -20%;
+
+    }
+    @include respond-to ($tablet){display: none;}
+}
+
+				 /* OWL CONTROLS */
+.controls__svg{
+	@extend .header__svg;
+}
+
+.owl-prev {
+	position: absolute;
+	left: -70px;
+	top: 190px;
+	transition: transform .3s;
+	.header__svg{margin: 0;}
+	&:hover{transform:scale(1.2);};
+	&:hover .controls__svg {fill:$lb;cursor: pointer;};
+	@include respond-to ($fullscreen) {left: 0px;}
+	@include respond-to ($desctop) {left: -40px;}
+
+}
+.owl-next {
+	position: absolute;
+	top: 190px;
+	right: -70px;
+	transition: transform .3s;
+	.header__svg{margin: 0;}
+	&:hover{transform:scale(1.2);};
+	&:hover .controls__svg {fill:$lb;cursor: pointer;};
+	@include respond-to ($fullscreen) {right: 20px;}
+	@include respond-to ($desctop) {right: -40px;}
+
+}
+
+				/* ANIMATION */
+.about__text--animated{
+	animation: textRoll 1.3s linear;
+}
+
+
+@keyframes slideDown{
+	0%,100%{transform: translate(0px, 0px) scale(1);opacity: 1;}
+	50%{transform: translate(0px, 20px) scale(0.7);opacity:.3;}
+}
+
+@keyframes dropdown {
+    0% {transform: translateY(-190%);}
+    60%{transform: translateY(10%);}
+    70%{transform: translateY(-4%);}
+    80%{transform: translateY(4%);}
+    95%{transform: translateY(-2%);}
+    100%{transform: translateY(0%);}
+}
+
+@keyframes sideFlow {
+	0%{margin-left: 400px; opacity: 0;}
+	50%{margin-left: 200px;};
+	100%{margin-left: 00px;opacity: 1;}
+}
+
+@keyframes textRoll {
+	0%{transform: translate(0px, 40px) rotateX(90deg) scale(0.97);opacity: 0}
+	50%{transform: translate(0px, 20px) rotateX(45deg) scale(1.0);}
+	100%{transform: translate(0px, 0px) rotateX(0deg);opacity: 1;}
+
+}
+
+@keyframes sliding {
+	0%{width: 0;}
+	100%{width: 100%;}
+}
+@keyframes JSsliding{
+	0%{width: 0;}
+	100%{width: 85%;}
+}
